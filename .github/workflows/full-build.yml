@@ -131,6 +131,10 @@ jobs:
         with:
           name: ${{ needs.linux-appimage.outputs.appimage }}
           path: .
+      - if: ${{ matrix.os == 'ubuntu-22.04' }}
+        run: |
+          sudo add-apt-repository universe
+          sudo apt install -y libfuse2
       - name: Perform self-test
         run: |
           chmod +x ${{ needs.linux-appimage.outputs.appimage }}
